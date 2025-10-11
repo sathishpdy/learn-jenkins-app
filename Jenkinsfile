@@ -16,7 +16,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "Small change"
+                    env.STAGING_URL = 'Hello from Build!'
                     ls -la
                     npm ci
                     npm run build
@@ -33,6 +33,7 @@ pipeline {
             }
             steps {
                 sh '''
+                    echo ${env.STAGING_URL}
                     npm install netlify-cli@20.1.1 node-jq
                     node_modules/.bin/netlify --version
                     echo "Deploying to STAGING"
